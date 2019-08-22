@@ -86,7 +86,7 @@ public class LoginController {
             //创建了有一个任务交给spring的线程池就可以了
            MailTask mailTask=new MailTask(mailSender,message);
            executor.execute(mailTask);
-
+            System.out.println("1211");
             response.getWriter().write("2");
        }
     }
