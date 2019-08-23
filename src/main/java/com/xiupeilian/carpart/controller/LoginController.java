@@ -87,6 +87,8 @@ public class LoginController {
            MailTask mailTask=new MailTask(mailSender,message);
            executor.execute(mailTask);
             response.getWriter().write("2");
+            System.out.println(1212);
+           System.out.println(1212);
        }
     }
 

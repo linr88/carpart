@@ -11,8 +11,7 @@ import java.io.IOException;
 public class Staffcontroller {
 
     @RequestMapping("/staffList")
-    public void staffList(HttpServletResponse response) throws IOException {
-        response.setCharacterEncoding("utf-8");
-        response.getWriter().write("成功访问！！！！！");
+    public String staffList(){
+    return  "index/staffList";
     }
 }
