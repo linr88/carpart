@@ -1,7 +1,9 @@
 package com.xiupeilian.carpart.controller;
 
 
+import com.xiupeilian.carpart.model.Company;
 import com.xiupeilian.carpart.model.SysUser;
+import com.xiupeilian.carpart.service.CompanyService;
 import com.xiupeilian.carpart.service.UserService;
 import com.xiupeilian.carpart.task.MailTask;
 import com.xiupeilian.carpart.util.SHA1Util;
@@ -29,6 +31,9 @@ public class LoginController {
     private JavaMailSenderImpl mailSender;
     @Autowired
     private ThreadPoolTaskExecutor executor;
+
+   // @Autowired
+   // private CompanyService companyService;
    @RequestMapping("/toLogin")
     public String toLogin(){
         return "login/login";
@@ -92,4 +97,39 @@ public class LoginController {
        }
     }
 
+    @RequestMapping("/toRegister")
+    public String toRegister(HttpServletRequest request){
+        return  "login/register";
+    }
+    @RequestMapping("/checkLoginName")
+    public void  checkLoginName(String loginName,HttpServletResponse response)throws Exception{
+       SysUser user= userService.getUserByLoginName(loginName);
+       if(user==null){
+           response.getWriter().write("1");
+       }else{
+           response.getWriter().write("2");
+       }
+    }
+    @RequestMapping("/checkPhone")
+    public void checkPhone(String telnum,HttpServletResponse response)throws Exception{
+        SysUser user=userService.findUserByPhone(telnum);
+        if(null==user){
+            response.getWriter().write("1");
+        }else{
+            response.getWriter().write("2");
+        }
+    }
+    @RequestMapping("/checkEmail")
+    public void checkEmail(String email,HttpServletResponse response)throws Exception{
+        SysUser user=userService.findUserByEmail(email);
+        if(null==user){
+            response.getWriter().write("1");
+        }else{
+            response.getWriter().write("2");
+        }
+    }
+    @RequestMapping("/checkCompanyname")
+    public void checkCompanyname(String companyname,HttpServletResponse response){
+     //   Company company=
+    }
 }

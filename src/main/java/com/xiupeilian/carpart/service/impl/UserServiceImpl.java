@@ -6,6 +6,7 @@ import com.xiupeilian.carpart.model.Menu;
 import com.xiupeilian.carpart.model.SysUser;
 import com.xiupeilian.carpart.service.UserService;
 import com.xiupeilian.carpart.vo.LoginVo;
+import com.xiupeilian.carpart.vo.StaffVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,26 @@ public class UserServiceImpl implements UserService{
     @Override
     public void updateUser(SysUser user) {
         sysUserMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public List<SysUser> findUserByLoginName(StaffVo vo) {
+        return sysUserMapper.findUserByLoginName(vo);
+    }
+
+    @Override
+    public SysUser getUserByLoginName(String loginName) {
+        return sysUserMapper.getUserByLoginName(loginName);
+    }
+
+    @Override
+    public SysUser findUserByPhone(String telnum) {
+        return sysUserMapper.findUserByPhone(telnum);
+    }
+
+    @Override
+    public SysUser findUserByEmail(String email) {
+        return sysUserMapper.findUserByEmail(email);
     }
 
 

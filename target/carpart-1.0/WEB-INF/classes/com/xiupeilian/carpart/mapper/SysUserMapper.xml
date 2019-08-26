@@ -194,4 +194,16 @@
   <select id="findUserByLoginNameAndEmail" parameterType="loginVo" resultMap="BaseResultMap">
     select * from sys_user where login_name=#{loginName} and email=#{email} and user_status=0
   </select>
+  <select id="findUserByLoginName" parameterType="staffVo" resultMap="BaseResultMap">
+    select * from sys_user
+    <where>
+        role_id=4
+      <if test="loginName!=null">
+        and username like '%${loginName}%'
+      </if>
+    </where>
+  </select>
+  <select id="getUserByLoginName" parameterType="string" resultMap="BaseResultMap">
+    select * from sys_user where login_name=#{loginName}
+  </select>
 </mapper>
