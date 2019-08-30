@@ -33,6 +33,7 @@
 
 	<!-- sqlSessinFactory在mybatis单独使用的时候 咱们封装了一个工具类来获取该单例，但是和spring整合之后 完全交给spring的ioc容器来实例化该对象
 		3个参数：1:mybatis的核心配置文件在哪 2:mybatis的mapper文件在哪 3:数据源是谁 -->
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 加载mybatis的核心配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/mybatis.xml" />
@@ -53,6 +54,7 @@
 				</bean>
 			</array>
 		</property>
+
 	</bean>
 
 	<!-- 有了sqlSessionFactory 就可以open一个sqlSession， 那么有了sqlSession,就可以让spring提前创建每一个mapper接口对应的代理对象 -->

@@ -1,8 +1,9 @@
 package com.xiupeilian.carpart.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Dymsn {
+public class Dymsn implements Serializable {
     private Integer id;
 
     private String message;

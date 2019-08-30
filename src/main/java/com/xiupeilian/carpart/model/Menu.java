@@ -1,6 +1,8 @@
 package com.xiupeilian.carpart.model;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu  implements Serializable {
     private Integer id;
 
     private Integer parentId;

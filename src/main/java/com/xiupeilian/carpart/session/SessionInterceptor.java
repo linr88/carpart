@@ -18,10 +18,10 @@ public class SessionInterceptor implements HandlerInterceptor  {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //获取请求路径
+     /*   //获取请求路径
         String path=request.getRequestURI();
         //判断是否包含 login
-        if(path.contains("login")){
+        if(path.contains("login")||path.contains("upLoad")){
             return  true;
         }else{
             HttpSession session=request.getSession(false);
@@ -53,8 +53,8 @@ public class SessionInterceptor implements HandlerInterceptor  {
 
                 }
             }
-        }
-
+        }*/
+    return true;
 
     }
 

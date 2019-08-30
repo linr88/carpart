@@ -12,14 +12,13 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     SysUser findUserByLoginNameAndPassword(LoginVo vo);
 
-
     SysUser findUserByLoginNameAndEmail(LoginVo vo);
 
     List<SysUser> findUserByLoginName(StaffVo vo);
 
     SysUser getUserByLoginName(String loginName);
 
-    SysUser findUserByPhone(String telnum);
+    SysUser findUserByPhone(String phone1);
 
     SysUser findUserByEmail(String email);
 }

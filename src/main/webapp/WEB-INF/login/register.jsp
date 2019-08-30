@@ -40,11 +40,11 @@ $(document).ready(function(){
 		onwait : "正在对用户名进行合法性校验，请稍候..."
 	});
 	//手机号
-	$("#telnum").formValidator({onshow:"请输入手机号",onfocus:"输入的手机号必须合法",oncorrect:"该手机号可以注册"}).inputValidator({min:11,max:11,onerror:"手机号码必须是11位的哦"}).regexValidator({regexp:"mobile",datatype:"enum",onerror:"手机号格式不正确"})
+	$("#phone1").formValidator({onshow:"请输入手机号",onfocus:"输入的手机号必须合法",oncorrect:"该手机号可以注册"}).inputValidator({min:11,max:11,onerror:"手机号码必须是11位的哦"}).regexValidator({regexp:"mobile",datatype:"enum",onerror:"手机号格式不正确"})
 	.ajaxValidator({
 	type : "post",
 	url : "${ctx}/login/checkPhone",
-	data:{"telnum" : function(){return $("#telnum").val();}},
+	data:{"phone1" : function(){return $("#phone1").val();}},
 	success : function(data){	
 	    if( data == "1" )
 		{
@@ -219,11 +219,23 @@ function getArea() {
                     <i id="loginNameTip" style="font-size:14px;width:250px;font-style:normal;"></i>
                 </div>
                 <div class="f-cb zhuce_tt">
-                    <span>手机号:</span>
-                    <input type="text" placeholder="手机号" name="phone" id="telnum">
-                    <em>*</em>
-                     <i id="telnumTip" style="font-size:14px;width:250px;font-style:normal;"></i>
+                    <div>
+                        <span>手机号:</span>
+                        <input id="phone1" type="text" autocomplete="off" placeholder="请输入已绑定的手机号"/>
+                        <em>*</em>
+                        <i id="phone1Tip" style="font-size:14px;width:250px;font-style:normal;"></i>
+                    </div>
+                    <div>
+                        <span>验证码:</span>
+                        <div class="code1">
+                            <input id="code1" type="text" autocomplete="off" placeholder="短信验证码" onblur="checkCode()"/>
+                            <input id="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" onClick="sendMessage1()" />
+                            <em>*</em>
+                            <i id="codeTip" style="font-size:14px;width:250px;font-style:normal;"></i>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="f-cb zhuce_tt">
                     <span>邮箱:</span>
                     <input type="text" placeholder="邮箱" name="email" id="email">
@@ -338,6 +350,75 @@ function getArea() {
     </div>
   
 <div class="footer">Copyright © 2014-2024 www.xiupeilian.com  All Rights Reserved. 修配连 版权所有</div>
+    <script type="text/javascript">
+        var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;//手机号正则
+        var count = 60; //间隔函数，1秒执行
+        var InterValObj1; //timer变量，控制时间
+        var curCount1;//当前剩余秒数
+        function sendMessage1() {
+            curCount1 = count;
+            var phone = $.trim($('#phone1').val());
+            if (!phoneReg.test(phone)) {
+                alert(" 请输入有效的手机号码");
+                return false;
+            }
+            //设置button效果，开始计时
+            $("#btnSendCode1").attr("disabled", "true");
+            $("#btnSendCode1").val( + curCount1 + "秒再获取");
+            InterValObj1 = window.setInterval(SetRemainTime1, 1000); //启动计时器，1秒执行一次
+            //向后台发起请求
+            $.ajax({
+                type : "post",
+                url : "${ctx}/login/smsControllter",
+                data : {
+                    'phone' : phone
+
+                },
+                success : function(data) {
+                    sendMessage1
+
+                }
+
+            });
+
+        }
+        function SetRemainTime1() {
+            if (curCount1 == 0) {
+                window.clearInterval(InterValObj1);//停止计时器
+                $("#btnSendCode1").removeAttr("disabled");//启用按钮
+                $("#btnSendCode1").val("重新发送");
+            } else {
+                curCount1--;
+                $("#btnSendCode1").val(+curCount1 + "秒再获取");
+            }
+        }
+        function checkCode() {
+            var code =$("#code1").val();
+
+            var phone=$("#phone1").val();
+            $.ajax({
+                type : "post",
+                url : "${ctx}/login/checkCode",
+                data : {
+                    'code' : code,
+                    'phone' : phone,
+
+                },
+                success : function(data) {
+                    if(data=='1'){
+                        $("#codeTip").html("验证码过期");
+                    }
+                    if(data=='2'){
+                        $("#codeTip").html("验证码正确");
+                    }
+                    if(data=='3'){
+                        $("#codeTip").html("验证码错误");
+                    }
+                }
+
+            });
+        }
+    </script>
 <script type="text/javascript">
 
     function duozhong(obj) {

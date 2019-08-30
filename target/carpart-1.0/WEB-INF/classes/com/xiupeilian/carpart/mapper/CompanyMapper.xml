@@ -386,4 +386,7 @@
       reserved_field3 = #{reservedField3,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findCompanyByCompanyname" parameterType="string" resultMap="BaseResultMap">
+    select * from company where company_name=#{companyname}
+  </select>
 </mapper>

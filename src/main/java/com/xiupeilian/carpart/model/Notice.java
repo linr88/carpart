@@ -1,8 +1,9 @@
 package com.xiupeilian.carpart.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Notice {
+public class Notice implements Serializable {
     private Integer id;
 
     private String title;

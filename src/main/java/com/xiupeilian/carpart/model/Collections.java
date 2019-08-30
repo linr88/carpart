@@ -1,8 +1,9 @@
 package com.xiupeilian.carpart.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Collections {
+public class Collections implements Serializable {
     private Integer id;
 
     private Integer colletorId;

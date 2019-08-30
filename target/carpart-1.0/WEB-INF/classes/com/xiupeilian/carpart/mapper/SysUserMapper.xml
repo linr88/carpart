@@ -206,4 +206,10 @@
   <select id="getUserByLoginName" parameterType="string" resultMap="BaseResultMap">
     select * from sys_user where login_name=#{loginName}
   </select>
+  <select id="findUserByPhone" parameterType="string" resultMap="BaseResultMap">
+    select * from sys_user where phone=#{telnum}
+  </select>
+  <select id="findUserByEmail" parameterType="string" resultMap="BaseResultMap">
+    select * from sys_user where email=#{email}
+  </select>
 </mapper>
